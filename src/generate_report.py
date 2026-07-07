@@ -31,9 +31,13 @@ BRAND = {
     "sub_name": "Niguel Point Properties",
     "monogram": "CB",
     "tagline": "Orange County Residential Market Intelligence",
-    "contact_email": "info@candiceblairgroup.example",
-    "contact_phone": "(949) 555-0100",
-    "license_line": "DRE Lic. #00000000  —  placeholder, replace with Candice's license number",
+    # Real contact info, pulled from niguelpointpropertiespm.com / about page (July 2026) —
+    # using the property-management contact since this report goes to PM clients (owners),
+    # not sales leads. candice@candiceblairgroup.com / (949) 466-0620 is the sales-side contact.
+    "contact_email": "candice@niguelpoint.com",
+    "contact_phone": "(949) 216-0055",
+    "license_line": "DRE Lic. #01395953",
+    # Colors/logo are still placeholder — swap for her real brand assets when she sends them.
     "marine": "#1f5159",
     "marine_deep": "#123338",
     "brass": "#9c7a3c",
@@ -67,10 +71,11 @@ def load_data():
     forecast = pd.read_csv(OUT / "tables/price_forecasts_12mo.csv")
     permits = pd.read_csv(OUT / "tables/permit_activity_monthly.csv")
     permits["date"] = pd.to_datetime(permits["date"])
-    return mkt, distress, forecast, permits
+    service_area = pd.read_csv(OUT / "tables/service_area_ranked.csv", dtype={"zip_code": str})
+    return mkt, distress, forecast, permits, service_area
 
 
-def compute_kpis(mkt, distress, forecast, permits):
+def compute_kpis(mkt, distress, forecast, permits, service_area):
     top = mkt.iloc[0]
     best_forecast = forecast.assign(
         chg_num=forecast["12mo Chg"].str.rstrip("%").astype(float)
@@ -81,6 +86,8 @@ def compute_kpis(mkt, distress, forecast, permits):
     latest12 = trailing12.iloc[-1]
     prior12 = trailing12.iloc[-13] if len(trailing12) > 13 else None
     permit_yoy = (latest12 / prior12 - 1) * 100 if prior12 else None
+
+    top_service = service_area.iloc[0]
 
     return {
         "top_zip": top["zip_code"],
@@ -94,6 +101,10 @@ def compute_kpis(mkt, distress, forecast, permits):
         "permits_trailing12": latest12,
         "permit_yoy": permit_yoy,
         "zip_count": len(mkt),
+        "service_area_count": len(service_area),
+        "top_service_zip": top_service["zip_code"],
+        "top_service_city": top_service["City"],
+        "top_service_score": top_service["investment_score"],
     }
 
 
@@ -116,7 +127,12 @@ def kpi_strip_html(kpis):
     return f"""
 <section class="kpi-strip">
   <div class="kpi">
-    <div class="kpi-label">Top-Ranked Submarket</div>
+    <div class="kpi-label">Your Service Area</div>
+    <div class="kpi-value">{kpis['top_service_zip']}</div>
+    <div class="kpi-sub">{kpis['top_service_city']} · top of {kpis['service_area_count']} zips</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Top-Ranked Submarket, OC-wide</div>
     <div class="kpi-value">{kpis['top_zip']}</div>
     <div class="kpi-sub">{kpis['top_city']} · score {kpis['top_score']:.1f}/100</div>
   </div>
@@ -196,7 +212,7 @@ def chart_card(letter, title, note, img_path):
     """
 
 
-def build_html(mkt, distress, forecast, permits, kpis, report_month):
+def build_html(mkt, distress, forecast, permits, kpis, service_area, report_month):
     b = BRAND
 
     top_table = table_html(
@@ -209,6 +225,13 @@ def build_html(mkt, distress, forecast, permits, kpis, report_month):
             "median_contract_rent": money,
             "price_chg_1yr_pct": lambda v: pct(v, signed=True),
         },
+    )
+
+    service_area_table = table_html(
+        service_area,
+        ["rank", "zip_code", "City", "investment_score", "str_status", "mello_roos_signal", "wildfire_notes"],
+        ["OC Rank", "ZIP", "City", "Score", "Short-Term Rental", "Mello-Roos Signal", "Wildfire Exposure"],
+        {"investment_score": lambda v: f"{v:.1f}"},
     )
 
     forecast_table = table_html(
@@ -298,10 +321,29 @@ def build_html(mkt, distress, forecast, permits, kpis, report_month):
     data (Zillow, Redfin, U.S. Census).</p>
   </section>
 
+  <section class="service-area">
+    <div class="exhibit-head">
+      <span class="exhibit-tag service-tag">Your Service Area</span>
+      <h3>{kpis['service_area_count']} Zip Codes — Niguel Point Properties &amp; The Candice Blair Group</h3>
+    </div>
+    <div class="exhibit-note">
+      Every zip code across Niguel Point Properties' 14-city property-management footprint and
+      The Candice Blair Group's 9 featured sales cities, ranked by investment score and layered
+      with three factors that matter for buy-and-hold and short-term-rental decisions but don't
+      belong in a percentile score: short-term rental legality, Mello-Roos/CFD exposure, and
+      wildfire risk. Directional research, not a live feed — see <code>data/reference/SOURCES.md</code>
+      for sources and verify before advising a client.
+    </div>
+    <div class="exhibit-figure">
+      <img src="data:image/png;base64,{b64_image(OUT / 'charts/service_area_scorecard.png')}" alt="Service area scorecard" />
+    </div>
+    <div class="table-scroll" style="margin-top: 20px;">{service_area_table}</div>
+  </section>
+
   <section class="table-block">
     <div class="exhibit-head">
       <span class="exhibit-tag">Exhibit H</span>
-      <h3>Top 10 Zip Codes — Full Ranking</h3>
+      <h3>Top 10 Zip Codes — Full Ranking, OC-Wide</h3>
     </div>
     <div class="table-scroll">{top_table}</div>
   </section>
@@ -351,8 +393,15 @@ def build_html(mkt, distress, forecast, permits, kpis, report_month):
     return html
 
 
-def build_index_html(mkt, kpis, report_month):
+def build_index_html(mkt, kpis, service_area, report_month):
     b = BRAND
+
+    service_area_table = table_html(
+        service_area.head(10),
+        ["rank", "zip_code", "City", "investment_score", "str_status", "mello_roos_signal"],
+        ["OC Rank", "ZIP", "City", "Score", "Short-Term Rental", "Mello-Roos"],
+        {"investment_score": lambda v: f"{v:.1f}"},
+    )
 
     top_table = table_html(
         mkt.head(10),
@@ -402,6 +451,19 @@ def build_index_html(mkt, kpis, report_month):
     <p>Live market intelligence for Orange County's 88 zip codes, refreshed monthly on public
     market data (Zillow, Redfin, U.S. Census). Explore the interactive map below, or download
     the full report to send to clients.</p>
+  </section>
+
+  <section class="service-area">
+    <div class="exhibit-head">
+      <span class="exhibit-tag service-tag">Your Service Area</span>
+      <h3>{kpis['service_area_count']} Zip Codes — Niguel Point Properties &amp; The Candice Blair Group</h3>
+    </div>
+    <div class="exhibit-note">
+      Investment score plus short-term-rental legality and Mello-Roos exposure for every zip code
+      in Candice's actual property-management and sales footprint — the full breakdown, including
+      wildfire risk, is in the monthly report.
+    </div>
+    <div class="table-scroll">{service_area_table}</div>
   </section>
 
   <section class="cta-panel">
@@ -525,9 +587,17 @@ body {
 
 .kpi-strip {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   border-bottom: 1px solid var(--line);
   background: var(--paper-raised);
+}
+@media (max-width: 900px) {
+  .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+  .kpi:nth-child(3) { border-right: none; }
+}
+@media (max-width: 560px) {
+  .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+  .kpi:nth-child(2n) { border-right: none; }
 }
 .kpi {
   padding: 22px clamp(12px, 2vw, 24px);
@@ -566,6 +636,18 @@ main { max-width: 980px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); }
   padding: 12px;
 }
 .exhibit-figure img { width: 100%; height: auto; display: block; }
+
+.service-area {
+  padding: 32px;
+  margin: 8px 0 36px;
+  border: 1px solid var(--brass);
+  background: var(--paper-raised);
+}
+.service-tag { background: var(--brass); color: var(--paper); border-color: var(--brass); }
+.exhibit-note code {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 12.5px; background: var(--paper); padding: 1px 5px; border: 1px solid var(--line);
+}
 
 .table-scroll { overflow-x: auto; }
 table {
@@ -608,11 +690,11 @@ def main():
     DOCS.mkdir(exist_ok=True)
     (DOCS / "maps").mkdir(exist_ok=True)
 
-    mkt, distress, forecast, permits = load_data()
-    kpis = compute_kpis(mkt, distress, forecast, permits)
+    mkt, distress, forecast, permits, service_area = load_data()
+    kpis = compute_kpis(mkt, distress, forecast, permits, service_area)
     report_month = datetime.now().strftime("%B %Y")
 
-    report_html = build_html(mkt, distress, forecast, permits, kpis, report_month)
+    report_html = build_html(mkt, distress, forecast, permits, kpis, service_area, report_month)
     report_path = DOCS / "monthly_report.html"
     report_path.write_text(report_html)
     print(f"Report written to {report_path} ({report_path.stat().st_size / 1024:.0f} KB)")
@@ -624,7 +706,7 @@ def main():
     map_dst.write_bytes(map_src.read_bytes())
     print(f"Map copied to {map_dst}")
 
-    index_html = build_index_html(mkt, kpis, report_month)
+    index_html = build_index_html(mkt, kpis, service_area, report_month)
     index_path = DOCS / "index.html"
     index_path.write_text(index_html)
     print(f"Landing page written to {index_path} ({index_path.stat().st_size / 1024:.0f} KB)")

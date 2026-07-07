@@ -29,6 +29,15 @@ Scores all 88 Orange County zip codes on 8 investment factors and produces a com
 Output: ranked zip code table, factor heatmap, city-level rollup (OC has 30+ cities in one
 county), interactive choropleth map, and an AB 1482 (statewide rent cap) exposure note.
 
+**Section 8, "Candice's actual service area,"** flags the ~39 zip codes that fall within Niguel
+Point Properties' 14-city property-management footprint and/or The Candice Blair Group's 9
+featured sales cities (scraped from her own sites — see `data/reference/SOURCES.md`), and layers
+on three factors that matter for her specifically but don't belong in a percentile score:
+short-term rental legality (she owns an Airbnb), Mello-Roos/CFD exposure (heavy in South OC's
+master-planned communities), and wildfire risk (canyon/WUI communities in her footprint). This is
+directional research, not a live feed — re-verify before advising a client. Exports to
+`outputs/tables/service_area_ranked.csv`.
+
 ### 2. Seller-Motivation Signal Detection (`notebooks/02_distressed_signals.ipynb`)
 Surfaces zip codes with elevated seller-motivation signal using price cuts, inventory growth,
 and vacancy — plus a county-wide building-permit trend as a capital-deployment indicator.

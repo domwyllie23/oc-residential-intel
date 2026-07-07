@@ -1,0 +1,19 @@
+city,zips,in_pm_service_area,in_sales_featured_cities,str_status,str_notes,mello_roos_signal,wildfire_notes
+Dana Point,"92629,92624",Yes,Yes,Permitted (cap/waitlist),Active permit program; waitlist forms when cap is reached,Low-Moderate,Low (coastal)
+Laguna Niguel,92677,Yes,Yes,Banned,All residential zones prohibited under Ordinance/ZCA16-01,Light-Moderate,Low-Moderate (some canyon-adjacent tract edges)
+Ladera Ranch,92694,Yes,No,Verify (unincorporated),Not confirmed in research; unincorporated South OC may follow county rules,Heavy,"Low (valley floor, not WUI core)"
+Mission Viejo,"92691,92692",Yes,Yes,Permitted (registration + 8% TOT),No hard cap found; some CFDs reportedly wound down in recent years per local reporting,Light-Moderate (declining),Low-Moderate (eastern foothill tract edges)
+Aliso Viejo,92656,Yes,Yes,Banned,Listed among OC cities prohibiting STR,Moderate-Heavy,Low
+San Juan Capistrano,92675,Yes,Yes,Restricted,Only permitted in RM/Very High Density zones; prohibited in single-family residential (most of city),Moderate (Rancho Mission Viejo adjacency),Moderate (eastern hillside / Ortega Hwy areas)
+San Clemente,"92672,92673",Yes,Yes,Permitted (caps + min. stay),Permit caps and minimum-stay rules in effect,Moderate (Talega district; some bonds maturing),Low-Moderate (some canyon edges)
+Laguna Beach,92651,Yes,Yes,Restricted,Banned in residential zones; permitted only in commercial/mixed-use districts; ~300-unit citywide cap,Low,Elevated (historic canyon/hillside fire risk; 1993 fire)
+Lake Forest,"92630,92610",Yes,No,Banned,Listed among OC cities prohibiting STR,Moderate (newer villages e.g. Baker Ranch),Low-Moderate (foothill edges near Whiting Ranch)
+Irvine,"92620,92618,92612,92602,92604,92614,92606,92603,92617",Yes,Yes,Banned,All residential zones prohibited; fines up to $1500/day,Heavy (many newer villages),Low-Moderate (eastern foothill villages near open space)
+Costa Mesa,"92627,92626",Yes,No,Banned,Listed among OC cities prohibiting STR,Low,Low
+Huntington Beach,"92647,92646,92648,92649,90742",Yes,No,Permitted (restricted),Owner-occupied allowed in Zones 1-2; unhosted only in Sunset Beach,Low,Low
+Fountain Valley,92708,Yes,No,Verify,Not confirmed in research,Low,Low
+Newport Beach,"92660,92663,92625,92657,92661,92662",Yes,No,Permitted (cap),Max 1550 active permits; waitlist when cap reached,Low,Low-Moderate (Newport Coast/Crystal Cove foothill edge)
+Coto de Caza,92679,No,Yes (Canyon Areas),Verify (unincorporated/gated),Not confirmed in research,Mixed (some parcels reportedly carry no Mello-Roos - unusual for an OC master-planned community),Elevated (canyon / WUI community)
+Rancho Santa Margarita,92688,No,Yes (Canyon Areas),Verify,Not confirmed in research,Moderate (Dove Canyon district),Low-Moderate (Dove Canyon foothill edge)
+Silverado,92676,No,Yes (Canyon Areas),Verify (unincorporated canyon community),Not confirmed in research,"Low (older rural canyon, not master-planned)","Elevated (canyon community, historically wildfire-prone)"
+Laguna Hills,92653,No,No (adjacent - appears in active listings),Verify,Not confirmed in research,Low-Moderate,Low

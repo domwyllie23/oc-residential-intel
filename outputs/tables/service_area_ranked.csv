@@ -1,0 +1,40 @@
+rank,zip_code,City,investment_score,str_status,str_notes,mello_roos_signal,wildfire_notes
+1,92661,Newport Beach,70.63953488372093,Permitted (cap),Max 1550 active permits; waitlist when cap reached,Low,Low-Moderate (Newport Coast/Crystal Cove foothill edge)
+4,92627,Costa Mesa,65.63953488372091,Banned,Listed among OC cities prohibiting STR,Low,Low
+10,92648,Huntington Beach,63.08139534883721,Permitted (restricted),Owner-occupied allowed in Zones 1-2; unhosted only in Sunset Beach,Low,Low
+14,92626,Costa Mesa,59.651162790697676,Banned,Listed among OC cities prohibiting STR,Low,Low
+15,92672,San Clemente,59.50581395348838,Permitted (caps + min. stay),Permit caps and minimum-stay rules in effect,Moderate (Talega district; some bonds maturing),Low-Moderate (some canyon edges)
+19,92606,Irvine,58.75000000000001,Banned,All residential zones prohibited; fines up to $1500/day,Heavy (many newer villages),Low-Moderate (eastern foothill villages near open space)
+23,90742,Huntington Beach,57.67441860465116,Permitted (restricted),Owner-occupied allowed in Zones 1-2; unhosted only in Sunset Beach,Low,Low
+27,92663,Newport Beach,55.98837209302326,Permitted (cap),Max 1550 active permits; waitlist when cap reached,Low,Low-Moderate (Newport Coast/Crystal Cove foothill edge)
+28,92647,Huntington Beach,55.639534883720934,Permitted (restricted),Owner-occupied allowed in Zones 1-2; unhosted only in Sunset Beach,Low,Low
+31,92649,Huntington Beach,54.70930232558139,Permitted (restricted),Owner-occupied allowed in Zones 1-2; unhosted only in Sunset Beach,Low,Low
+38,92708,Fountain Valley,51.33720930232558,Verify,Not confirmed in research,Low,Low
+44,92657,Newport Beach,49.970930232558146,Permitted (cap),Max 1550 active permits; waitlist when cap reached,Low,Low-Moderate (Newport Coast/Crystal Cove foothill edge)
+46,92629,Dana Point,49.59302325581395,Permitted (cap/waitlist),Active permit program; waitlist forms when cap is reached,Low-Moderate,Low (coastal)
+48,92646,Huntington Beach,48.43023255813954,Permitted (restricted),Owner-occupied allowed in Zones 1-2; unhosted only in Sunset Beach,Low,Low
+49,92603,Irvine,47.49999999999999,Banned,All residential zones prohibited; fines up to $1500/day,Heavy (many newer villages),Low-Moderate (eastern foothill villages near open space)
+53,92688,Rancho Santa Margarita,46.51162790697675,Verify,Not confirmed in research,Moderate (Dove Canyon district),Low-Moderate (Dove Canyon foothill edge)
+54,92617,Irvine,46.48255813953488,Banned,All residential zones prohibited; fines up to $1500/day,Heavy (many newer villages),Low-Moderate (eastern foothill villages near open space)
+55,92662,Newport Beach,46.162790697674424,Permitted (cap),Max 1550 active permits; waitlist when cap reached,Low,Low-Moderate (Newport Coast/Crystal Cove foothill edge)
+58,92614,Irvine,45.697674418604656,Banned,All residential zones prohibited; fines up to $1500/day,Heavy (many newer villages),Low-Moderate (eastern foothill villages near open space)
+57,92660,Newport Beach,45.697674418604656,Permitted (cap),Max 1550 active permits; waitlist when cap reached,Low,Low-Moderate (Newport Coast/Crystal Cove foothill edge)
+62,92651,Laguna Beach,44.65116279069767,Restricted,Banned in residential zones; permitted only in commercial/mixed-use districts; ~300-unit citywide cap,Low,Elevated (historic canyon/hillside fire risk; 1993 fire)
+63,92656,Aliso Viejo,44.47674418604652,Banned,Listed among OC cities prohibiting STR,Moderate-Heavy,Low
+64,92677,Laguna Niguel,44.418604651162795,Banned,All residential zones prohibited under Ordinance/ZCA16-01,Light-Moderate,Low-Moderate (some canyon-adjacent tract edges)
+65,92618,Irvine,44.01162790697675,Banned,All residential zones prohibited; fines up to $1500/day,Heavy (many newer villages),Low-Moderate (eastern foothill villages near open space)
+66,92624,Dana Point,42.44186046511628,Permitted (cap/waitlist),Active permit program; waitlist forms when cap is reached,Low-Moderate,Low (coastal)
+67,92610,Lake Forest,42.44186046511628,Banned,Listed among OC cities prohibiting STR,Moderate (newer villages e.g. Baker Ranch),Low-Moderate (foothill edges near Whiting Ranch)
+68,92604,Irvine,41.97674418604652,Banned,All residential zones prohibited; fines up to $1500/day,Heavy (many newer villages),Low-Moderate (eastern foothill villages near open space)
+69,92625,Newport Beach,41.627906976744185,Permitted (cap),Max 1550 active permits; waitlist when cap reached,Low,Low-Moderate (Newport Coast/Crystal Cove foothill edge)
+70,92602,Irvine,41.395348837209305,Banned,All residential zones prohibited; fines up to $1500/day,Heavy (many newer villages),Low-Moderate (eastern foothill villages near open space)
+71,92694,Ladera Ranch,40.58139534883721,Verify (unincorporated),Not confirmed in research; unincorporated South OC may follow county rules,Heavy,"Low (valley floor, not WUI core)"
+73,92675,San Juan Capistrano,39.01162790697675,Restricted,Only permitted in RM/Very High Density zones; prohibited in single-family residential (most of city),Moderate (Rancho Mission Viejo adjacency),Moderate (eastern hillside / Ortega Hwy areas)
+74,92691,Mission Viejo,38.372093023255815,Permitted (registration + 8% TOT),No hard cap found; some CFDs reportedly wound down in recent years per local reporting,Light-Moderate (declining),Low-Moderate (eastern foothill tract edges)
+76,92612,Irvine,37.96511627906977,Banned,All residential zones prohibited; fines up to $1500/day,Heavy (many newer villages),Low-Moderate (eastern foothill villages near open space)
+77,92620,Irvine,37.44186046511628,Banned,All residential zones prohibited; fines up to $1500/day,Heavy (many newer villages),Low-Moderate (eastern foothill villages near open space)
+78,92630,Lake Forest,36.62790697674418,Banned,Listed among OC cities prohibiting STR,Moderate (newer villages e.g. Baker Ranch),Low-Moderate (foothill edges near Whiting Ranch)
+79,92679,Coto de Caza,36.33720930232559,Verify (unincorporated/gated),Not confirmed in research,Mixed (some parcels reportedly carry no Mello-Roos - unusual for an OC master-planned community),Elevated (canyon / WUI community)
+80,92676,Silverado,35.93023255813954,Verify (unincorporated canyon community),Not confirmed in research,"Low (older rural canyon, not master-planned)","Elevated (canyon community, historically wildfire-prone)"
+81,92673,San Clemente,32.06395348837209,Permitted (caps + min. stay),Permit caps and minimum-stay rules in effect,Moderate (Talega district; some bonds maturing),Low-Moderate (some canyon edges)
+84,92692,Mission Viejo,29.709302325581394,Permitted (registration + 8% TOT),No hard cap found; some CFDs reportedly wound down in recent years per local reporting,Light-Moderate (declining),Low-Moderate (eastern foothill tract edges)
