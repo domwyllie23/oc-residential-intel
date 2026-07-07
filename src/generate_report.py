@@ -112,6 +112,74 @@ def table_html(df, columns, headers, formatters=None):
     return f"<table><thead><tr>{head}</tr></thead><tbody>{''.join(rows)}</tbody></table>"
 
 
+def kpi_strip_html(kpis):
+    return f"""
+<section class="kpi-strip">
+  <div class="kpi">
+    <div class="kpi-label">Top-Ranked Submarket</div>
+    <div class="kpi-value">{kpis['top_zip']}</div>
+    <div class="kpi-sub">{kpis['top_city']} · score {kpis['top_score']:.1f}/100</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">OC Median Home Value</div>
+    <div class="kpi-value">{money(kpis['median_home_value'])}</div>
+    <div class="kpi-sub">across {kpis['zip_count']} zip codes</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Strongest 12mo Forecast</div>
+    <div class="kpi-value">{kpis['best_forecast_chg']}</div>
+    <div class="kpi-sub">{kpis['best_forecast_city']}</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Top Opportunity Signal</div>
+    <div class="kpi-value">{kpis['opportunity_zip']}</div>
+    <div class="kpi-sub">{kpis['opportunity_city']}</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Permits, Trailing 12mo</div>
+    <div class="kpi-value">{kpis['permits_trailing12']:,.0f}</div>
+    <div class="kpi-sub">{('YoY ' + pct(kpis['permit_yoy'], signed=True)) if kpis['permit_yoy'] is not None else 'units authorized'}</div>
+  </div>
+</section>
+"""
+
+
+def masthead_html(report_month, title_html):
+    b = BRAND
+    if b["logo_path"]:
+        logo_html = f'<img class="logo-img" src="data:image/png;base64,{b64_image(Path(b["logo_path"]))}" alt="{b["business_name"]}" />'
+    else:
+        logo_html = f'<div class="monogram">{b["monogram"]}</div>'
+    prepared_for = f'<div class="prepared-for">Prepared for {b["client_name"]}</div>' if b["client_name"] else ""
+    return f"""
+<header class="masthead">
+  <div class="masthead-brand">
+    {logo_html}
+    <div class="brand-text">
+      <div class="business-name">{b['business_name']}</div>
+      <div class="sub-name">{b['sub_name']}</div>
+    </div>
+  </div>
+  <div class="masthead-meta">
+    <div class="report-title">{title_html}</div>
+    <div class="report-month">{report_month}</div>
+    {prepared_for}
+  </div>
+</header>
+"""
+
+
+def footer_html():
+    b = BRAND
+    return f"""
+<footer>
+  <div class="footer-brand">{b['business_name']} · {b['sub_name']}</div>
+  <div class="footer-contact">{b['contact_email']} · {b['contact_phone']}</div>
+  <div class="footer-license">{b['license_line']}</div>
+</footer>
+"""
+
+
 def chart_card(letter, title, note, img_path):
     img_b64 = b64_image(img_path)
     return f"""
@@ -130,13 +198,6 @@ def chart_card(letter, title, note, img_path):
 
 def build_html(mkt, distress, forecast, permits, kpis, report_month):
     b = BRAND
-
-    if b["logo_path"]:
-        logo_html = f'<img class="logo-img" src="data:image/png;base64,{b64_image(Path(b["logo_path"]))}" alt="{b["business_name"]}" />'
-    else:
-        logo_html = f'<div class="monogram">{b["monogram"]}</div>'
-
-    prepared_for = f'<div class="prepared-for">Prepared for {b["client_name"]}</div>' if b["client_name"] else ""
 
     top_table = table_html(
         mkt.head(10),
@@ -225,48 +286,9 @@ def build_html(mkt, distress, forecast, permits, kpis, report_month):
 </head>
 <body>
 
-<header class="masthead">
-  <div class="masthead-brand">
-    {logo_html}
-    <div class="brand-text">
-      <div class="business-name">{b['business_name']}</div>
-      <div class="sub-name">{b['sub_name']}</div>
-    </div>
-  </div>
-  <div class="masthead-meta">
-    <div class="report-title">Orange County Residential<br />Market Intelligence Report</div>
-    <div class="report-month">{report_month}</div>
-    {prepared_for}
-  </div>
-</header>
+{masthead_html(report_month, "Orange County Residential<br />Market Intelligence Report")}
 
-<section class="kpi-strip">
-  <div class="kpi">
-    <div class="kpi-label">Top-Ranked Submarket</div>
-    <div class="kpi-value">{kpis['top_zip']}</div>
-    <div class="kpi-sub">{kpis['top_city']} · score {kpis['top_score']:.1f}/100</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-label">OC Median Home Value</div>
-    <div class="kpi-value">{money(kpis['median_home_value'])}</div>
-    <div class="kpi-sub">across {kpis['zip_count']} zip codes</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-label">Strongest 12mo Forecast</div>
-    <div class="kpi-value">{kpis['best_forecast_chg']}</div>
-    <div class="kpi-sub">{kpis['best_forecast_city']}</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-label">Top Opportunity Signal</div>
-    <div class="kpi-value">{kpis['opportunity_zip']}</div>
-    <div class="kpi-sub">{kpis['opportunity_city']}</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-label">Permits, Trailing 12mo</div>
-    <div class="kpi-value">{kpis['permits_trailing12']:,.0f}</div>
-    <div class="kpi-sub">{('YoY ' + pct(kpis['permit_yoy'], signed=True)) if kpis['permit_yoy'] is not None else 'units authorized'}</div>
-  </div>
-</section>
+{kpi_strip_html(kpis)}
 
 <main>
   <section class="intro">
@@ -322,11 +344,93 @@ def build_html(mkt, distress, forecast, permits, kpis, report_month):
   </section>
 </main>
 
-<footer>
-  <div class="footer-brand">{b['business_name']} · {b['sub_name']}</div>
-  <div class="footer-contact">{b['contact_email']} · {b['contact_phone']}</div>
-  <div class="footer-license">{b['license_line']}</div>
-</footer>
+{footer_html()}
+
+</body>
+</html>"""
+    return html
+
+
+def build_index_html(mkt, kpis, report_month):
+    b = BRAND
+
+    top_table = table_html(
+        mkt.head(10),
+        ["rank", "zip_code", "City", "investment_score", "renter_pct", "median_contract_rent", "price_chg_1yr_pct"],
+        ["Rank", "ZIP", "City", "Score", "Renter %", "Median Rent", "1yr Price Chg"],
+        {
+            "investment_score": lambda v: f"{v:.1f}",
+            "renter_pct": lambda v: pct(v * 100),
+            "median_contract_rent": money,
+            "price_chg_1yr_pct": lambda v: pct(v, signed=True),
+        },
+    )
+
+    html = f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{b['business_name']} — Orange County Market Intelligence</title>
+<style>
+{CSS}
+.map-frame {{ width: 100%; height: 560px; border: 1px solid var(--line); background: var(--paper-raised); }}
+.map-frame iframe {{ width: 100%; height: 100%; border: none; display: block; }}
+.cta-panel {{
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  background: var(--marine-deep); color: var(--paper-raised);
+  padding: 28px 32px; margin: 36px 0;
+}}
+.cta-panel p {{ margin: 0; max-width: 56ch; font-size: 15px; }}
+.cta-panel a {{
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-transform: uppercase; letter-spacing: 0.06em; font-size: 13px;
+  color: var(--marine-deep); background: var(--brass);
+  padding: 12px 22px; text-decoration: none; white-space: nowrap;
+}}
+.cta-panel a:hover {{ opacity: 0.9; }}
+</style>
+</head>
+<body>
+
+{masthead_html(report_month, "Orange County Residential<br />Market Intelligence")}
+
+{kpi_strip_html(kpis)}
+
+<main>
+  <section class="intro">
+    <p>Live market intelligence for Orange County's 88 zip codes, refreshed monthly on public
+    market data (Zillow, Redfin, U.S. Census). Explore the interactive map below, or download
+    the full report to send to clients.</p>
+  </section>
+
+  <section class="cta-panel">
+    <p>This month's complete report — full rankings, forecasts, and opportunity signal, formatted
+    to send directly to clients.</p>
+    <a href="monthly_report.html">View Full Report →</a>
+  </section>
+
+  <section class="exhibit">
+    <div class="exhibit-head">
+      <span class="exhibit-tag">Interactive</span>
+      <h3>Investment Score by Zip Code</h3>
+    </div>
+    <div class="exhibit-note">Hover any zip code for its score; click the top markers for full detail.</div>
+    <div class="map-frame">
+      <iframe src="maps/market_selection_map.html" title="Orange County investment score map"></iframe>
+    </div>
+  </section>
+
+  <section class="table-block">
+    <div class="exhibit-head">
+      <span class="exhibit-tag">Top 10</span>
+      <h3>Highest-Ranked Zip Codes</h3>
+    </div>
+    <div class="table-scroll">{top_table}</div>
+  </section>
+</main>
+
+{footer_html()}
 
 </body>
 </html>"""
@@ -502,14 +606,28 @@ footer {
 
 def main():
     DOCS.mkdir(exist_ok=True)
+    (DOCS / "maps").mkdir(exist_ok=True)
+
     mkt, distress, forecast, permits = load_data()
     kpis = compute_kpis(mkt, distress, forecast, permits)
     report_month = datetime.now().strftime("%B %Y")
-    html = build_html(mkt, distress, forecast, permits, kpis, report_month)
 
-    out_path = DOCS / "monthly_report.html"
-    out_path.write_text(html)
-    print(f"Report written to {out_path} ({out_path.stat().st_size / 1024:.0f} KB)")
+    report_html = build_html(mkt, distress, forecast, permits, kpis, report_month)
+    report_path = DOCS / "monthly_report.html"
+    report_path.write_text(report_html)
+    print(f"Report written to {report_path} ({report_path.stat().st_size / 1024:.0f} KB)")
+
+    # GitHub Pages serves only the docs/ folder, so the interactive map (a separate,
+    # live HTML/JS file — not embeddable as a static image) is copied in here.
+    map_src = OUT / "maps/market_selection_map.html"
+    map_dst = DOCS / "maps/market_selection_map.html"
+    map_dst.write_bytes(map_src.read_bytes())
+    print(f"Map copied to {map_dst}")
+
+    index_html = build_index_html(mkt, kpis, report_month)
+    index_path = DOCS / "index.html"
+    index_path.write_text(index_html)
+    print(f"Landing page written to {index_path} ({index_path.stat().st_size / 1024:.0f} KB)")
 
 
 if __name__ == "__main__":

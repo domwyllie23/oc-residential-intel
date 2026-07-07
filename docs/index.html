@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Candice Blair Group — Orange County Market Intelligence</title>
+<style>
+
+:root {
+  --paper: #f6f2e8;
+  --paper-raised: #fffdf8;
+  --ink: #1b2624;
+  --ink-soft: #4a5651;
+  --marine: #1f5159;
+  --marine-deep: #123338;
+  --brass: #9c7a3c;
+  --line: #cbbfa0;
+  --good: #3c7a5a;
+  --warn: #a9542c;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #10201e;
+    --paper-raised: #16302c;
+    --ink: #eef2ee;
+    --ink-soft: #a9b8b0;
+    --marine: #6fb3ac;
+    --marine-deep: #dcefe9;
+    --brass: #cfa458;
+    --line: #365049;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #10201e; --paper-raised: #16302c; --ink: #eef2ee; --ink-soft: #a9b8b0;
+  --marine: #6fb3ac; --marine-deep: #dcefe9; --brass: #cfa458; --line: #365049;
+}
+:root[data-theme="light"] {
+  --paper: #f6f2e8; --paper-raised: #fffdf8; --ink: #1b2624; --ink-soft: #4a5651;
+  --marine: #1f5159; --marine-deep: #123338; --brass: #9c7a3c; --line: #cbbfa0;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+.label {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.tabular { font-variant-numeric: tabular-nums; }
+
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  padding: 48px clamp(20px, 5vw, 64px) 28px;
+  border-bottom: 2px solid var(--marine);
+}
+.masthead-brand { display: flex; align-items: center; gap: 16px; }
+.monogram {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--marine-deep);
+  color: var(--paper-raised);
+  display: flex; align-items: center; justify-content: center;
+  font-family: Georgia, serif; font-size: 22px; letter-spacing: 0.02em;
+  border: 1px solid var(--brass);
+}
+.logo-img { max-height: 56px; max-width: 160px; object-fit: contain; }
+.business-name { font-size: 22px; font-weight: normal; color: var(--marine-deep); }
+.sub-name {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft);
+  margin-top: 2px;
+}
+.masthead-meta { text-align: right; }
+.report-title {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-soft); line-height: 1.5;
+}
+.report-month { font-size: 20px; color: var(--brass); margin-top: 6px; }
+.prepared-for {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px; color: var(--ink-soft); margin-top: 6px; font-style: italic;
+}
+
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-bottom: 1px solid var(--line);
+  background: var(--paper-raised);
+}
+.kpi {
+  padding: 22px clamp(12px, 2vw, 24px);
+  border-right: 1px solid var(--line);
+}
+.kpi:last-child { border-right: none; }
+.kpi-label {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-soft); margin-bottom: 8px;
+}
+.kpi-value {
+  font-size: 26px; color: var(--marine-deep);
+  font-variant-numeric: tabular-nums;
+}
+.kpi-sub { font-size: 12.5px; color: var(--ink-soft); margin-top: 4px; }
+
+main { max-width: 980px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); }
+
+.intro { padding: 32px 0; border-bottom: 1px solid var(--line); }
+.intro p { max-width: 68ch; color: var(--ink-soft); font-size: 16px; }
+
+.exhibit, .table-block { padding: 36px 0; border-bottom: 1px solid var(--line); }
+.exhibit-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 10px; }
+.exhibit-tag {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--brass); border: 1px solid var(--brass); border-radius: 2px;
+  padding: 2px 8px; white-space: nowrap;
+}
+.exhibit-head h3 { font-size: 19px; font-weight: normal; color: var(--marine-deep); margin: 0; }
+.exhibit-note { color: var(--ink-soft); font-size: 14.5px; max-width: 68ch; margin-bottom: 18px; }
+.exhibit-figure {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  padding: 12px;
+}
+.exhibit-figure img { width: 100%; height: auto; display: block; }
+
+.table-scroll { overflow-x: auto; }
+table {
+  width: 100%; border-collapse: collapse;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 13.5px;
+}
+th {
+  text-align: left; font-weight: normal; text-transform: uppercase;
+  letter-spacing: 0.05em; font-size: 11px; color: var(--ink-soft);
+  padding: 8px 14px; border-bottom: 1px solid var(--marine);
+  white-space: nowrap;
+}
+td {
+  padding: 9px 14px; border-bottom: 1px solid var(--line);
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+tr:hover td { background: var(--paper-raised); }
+
+.notes { padding: 36px 0 48px; }
+.notes h4 {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--ink-soft); font-weight: normal; margin: 0 0 14px;
+}
+.notes ul { margin: 0; padding-left: 20px; }
+.notes li { color: var(--ink-soft); font-size: 14px; margin-bottom: 10px; max-width: 72ch; }
+
+footer {
+  text-align: center; padding: 32px 20px 48px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: var(--ink-soft); font-size: 12px;
+}
+.footer-brand { color: var(--marine-deep); font-size: 13px; margin-bottom: 4px; }
+.footer-license { margin-top: 4px; opacity: 0.8; }
+
+.map-frame { width: 100%; height: 560px; border: 1px solid var(--line); background: var(--paper-raised); }
+.map-frame iframe { width: 100%; height: 100%; border: none; display: block; }
+.cta-panel {
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  background: var(--marine-deep); color: var(--paper-raised);
+  padding: 28px 32px; margin: 36px 0;
+}
+.cta-panel p { margin: 0; max-width: 56ch; font-size: 15px; }
+.cta-panel a {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-transform: uppercase; letter-spacing: 0.06em; font-size: 13px;
+  color: var(--marine-deep); background: var(--brass);
+  padding: 12px 22px; text-decoration: none; white-space: nowrap;
+}
+.cta-panel a:hover { opacity: 0.9; }
+</style>
+</head>
+<body>
+
+
+<header class="masthead">
+  <div class="masthead-brand">
+    <div class="monogram">CB</div>
+    <div class="brand-text">
+      <div class="business-name">The Candice Blair Group</div>
+      <div class="sub-name">Niguel Point Properties</div>
+    </div>
+  </div>
+  <div class="masthead-meta">
+    <div class="report-title">Orange County Residential<br />Market Intelligence</div>
+    <div class="report-month">July 2026</div>
+    
+  </div>
+</header>
+
+
+
+<section class="kpi-strip">
+  <div class="kpi">
+    <div class="kpi-label">Top-Ranked Submarket</div>
+    <div class="kpi-value">92661</div>
+    <div class="kpi-sub">Newport Beach · score 70.6/100</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">OC Median Home Value</div>
+    <div class="kpi-value">$1,223,717</div>
+    <div class="kpi-sub">across 86 zip codes</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Strongest 12mo Forecast</div>
+    <div class="kpi-value">+7.9%</div>
+    <div class="kpi-sub">Newport Beach</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Top Opportunity Signal</div>
+    <div class="kpi-value">92602</div>
+    <div class="kpi-sub">Irvine</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Permits, Trailing 12mo</div>
+    <div class="kpi-value">5,954</div>
+    <div class="kpi-sub">YoY -23.7%</div>
+  </div>
+</section>
+
+
+<main>
+  <section class="intro">
+    <p>Live market intelligence for Orange County's 88 zip codes, refreshed monthly on public
+    market data (Zillow, Redfin, U.S. Census). Explore the interactive map below, or download
+    the full report to send to clients.</p>
+  </section>
+
+  <section class="cta-panel">
+    <p>This month's complete report — full rankings, forecasts, and opportunity signal, formatted
+    to send directly to clients.</p>
+    <a href="monthly_report.html">View Full Report →</a>
+  </section>
+
+  <section class="exhibit">
+    <div class="exhibit-head">
+      <span class="exhibit-tag">Interactive</span>
+      <h3>Investment Score by Zip Code</h3>
+    </div>
+    <div class="exhibit-note">Hover any zip code for its score; click the top markers for full detail.</div>
+    <div class="map-frame">
+      <iframe src="maps/market_selection_map.html" title="Orange County investment score map"></iframe>
+    </div>
+  </section>
+
+  <section class="table-block">
+    <div class="exhibit-head">
+      <span class="exhibit-tag">Top 10</span>
+      <h3>Highest-Ranked Zip Codes</h3>
+    </div>
+    <div class="table-scroll"><table><thead><tr><th>Rank</th><th>ZIP</th><th>City</th><th>Score</th><th>Renter %</th><th>Median Rent</th><th>1yr Price Chg</th></tr></thead><tbody><tr><td>1</td><td>92661</td><td>Newport Beach</td><td>70.6</td><td>62.3%</td><td>$2,317</td><td>+12.7%</td></tr><tr><td>2</td><td>90621</td><td>Buena Park</td><td>70.3</td><td>63.4%</td><td>$1,793</td><td>+0.7%</td></tr><tr><td>3</td><td>92701</td><td>Santa Ana</td><td>69.7</td><td>69.4%</td><td>$1,471</td><td>+2.2%</td></tr><tr><td>4</td><td>92627</td><td>Costa Mesa</td><td>65.6</td><td>62.3%</td><td>$2,064</td><td>+6.3%</td></tr><tr><td>5</td><td>92707</td><td>Santa Ana</td><td>65.6</td><td>49.8%</td><td>$1,920</td><td>+1.8%</td></tr><tr><td>6</td><td>90720</td><td>Los Alamitos</td><td>64.1</td><td>35.4%</td><td>$2,211</td><td>+2.1%</td></tr><tr><td>7</td><td>92706</td><td>Santa Ana</td><td>63.9</td><td>47.3%</td><td>$1,617</td><td>+1.5%</td></tr><tr><td>8</td><td>92843</td><td>Garden Grove</td><td>63.4</td><td>51.5%</td><td>$1,734</td><td>+3.0%</td></tr><tr><td>9</td><td>92866</td><td>Orange</td><td>63.3</td><td>66.3%</td><td>$1,740</td><td>+2.0%</td></tr><tr><td>10</td><td>92648</td><td>Huntington Beach</td><td>63.1</td><td>53.2%</td><td>$2,120</td><td>+4.6%</td></tr></tbody></table></div>
+  </section>
+</main>
+
+
+<footer>
+  <div class="footer-brand">The Candice Blair Group · Niguel Point Properties</div>
+  <div class="footer-contact">info@candiceblairgroup.example · (949) 555-0100</div>
+  <div class="footer-license">DRE Lic. #00000000  —  placeholder, replace with Candice's license number</div>
+</footer>
+
+
+</body>
+</html>
