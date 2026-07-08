@@ -8,6 +8,11 @@ Adapted from a sibling project ([`sf-multifamily-intel`](../sf-multifamily-intel
 top-of-funnel workflow of a multifamily acquisitions team: market selection, seller-motivation
 signal detection, and price forecasting — entirely on free public data.
 
+> **This repo is public and `docs/` is served live on GitHub Pages.** Candice has CRMLS access,
+> but CRMLS's redistribution rules don't permit posting MLS-derived data or statistics to a
+> public URL. If MLS data is ever added to this project, it stays out of `docs/`, `outputs/`, and
+> this repo entirely — see `CLAUDE.md` for the full policy.
+
 ---
 
 ## What it does

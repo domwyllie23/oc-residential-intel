@@ -1,6 +1,14 @@
 # Raw data — re-fetch with src/fetch_*.py scripts
 data/raw/
 
+# MLS/CRMLS exports and anything derived from them — never belongs in this public repo.
+# See CLAUDE.md. This is a safety net, not the policy itself: the real rule is "never write
+# MLS-derived output into docs/ or outputs/ in the first place."
+data/mls/
+data/private/
+*.mls.csv
+*.mls.json
+
 # Python
 __pycache__/
 *.pyc
